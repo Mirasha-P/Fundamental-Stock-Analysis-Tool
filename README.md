@@ -5,6 +5,7 @@ This project is a Python-based tool for analysing stocks using financial data fr
 ## Features
 
 - Fetches financial data (balance sheet, income statement, cash flow statement) for given stock tickers using `yfinance`
+- Option to save financial statements as CSV files
 - Calculates a custom score based on:
   - Profitability
   - Leverage and Liquidity
@@ -38,7 +39,26 @@ import pandas as pd
 TICKERS = ['TSLA']  # Add more tickers as needed
 ```
 
-2. Run the analysis:
+2. Fetch financial statements:
+
+```python
+def get_financial_statements(ticker, save_to_csv=False):
+    # ... (function implementation)
+    
+    if save_to_csv:
+        balance_sheet.to_csv(f"{ticker}_balance_sheet.csv")
+        income_statement.to_csv(f"{ticker}_income_statement.csv")
+        cashflow_statement.to_csv(f"{ticker}_cashflow_statement.csv")
+    
+    return balance_sheet, income_statement, cashflow_statement, years
+
+# Usage example:
+balance_sheet, income_statement, cashflow_statement, years = get_financial_statements('TSLA', save_to_csv=True)
+```
+
+Note: By default, `save_to_csv` is set to `False`. If set to `True`, the function will save the financial statements as CSV files in the current working directory.
+
+3. Run the analysis:
 
 ```python
 result_summary = analyse_stocks(TICKERS)
